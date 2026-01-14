@@ -483,3 +483,112 @@ document.getElementById("clickme").addEventListener("click",function (){
  } 
  console.log("whileExpires");
  ```
+# map vs filter vs reduce
+## **MAP :**
+- map() is an array method that creates a `new array` by applying a function to `each element of an existing array`
+
+- Use map() when you want a `transformed array`
+
+- `syntax` : `arr.map(function())`
+  - where  arr is given array and function() is a function.
+          
+          
+- Ex: 
+  - we have an array , and we want an array to have each values double of the given array
+- *Code1 :* (To double every element)
+```js
+const arr = [5,2,3,7];
+function double (el){
+  return 2*el
+}
+const output = arr.map(double); // it will pass the 
+// const output = arr.map(function double (el){
+//   return 2*el; // will give the same output
+// })
+console.log(output); // [10,4,6,14]
+```
+- *Code2 :*(To find binary number of each element)
+```js
+const arr = [5,2,3,7];
+function toBinary(el){
+  return el.toString(2);
+}
+const output = arr.map(toBinary);
+console.log(output); // [ '101', '10', '11', '111' ]
+```
+## filter: 
+- filter() is an array method that creates a new array containing only those elements which satisfy a given condition.
+- *Example*
+```js
+const arr = [1,2,3,4,5,6]
+function isOdd(el){
+  return el%2; // return True or False
+}
+const output = arr.filter(isOdd);
+console.log(output); // [1,3,5]
+```
+## reduce
+- reduce() is an array method that reduces multiple values into a `single value`
+- *Example :* (To find sum of all numbers)
+```js
+let sum = 0;
+const arr = [1,2,3,4,5];
+
+for (let i = 0;i<=4;i++){
+  sum+=arr[i];
+}
+console.log(sum) // 15
+```
+
+```js
+const arr = [1,2,3,4,5];
+const output = arr.reduce(function (acc,curr){
+  acc=acc+curr;
+  return acc;
+},0)
+console.log(output) // 15
+```
+- The `reduce` needs two parameters one is function and other is starting value which will be the the starting value of `acc` (just like `sum` , its starting value is 0)
+- The function needs parameters `acc` and `curr`, curr have each element ,and acc will accumulate (basically it is `sum`).
+
+## Chaining of map and filter
+- let users = [
+  { name: "Arnav", age: 20 },
+  { name: "Riya", age: 25 },
+  { name: "Aman", age: 17 }
+];
+- You need to print name whose age is greater than 18
+- So,its a two step process:
+- `step1 :` Use `filter` to get those users whose age is greater than 18
+- `step2 :` Use `map` to get the name of those user
+- *Code :*
+```js
+const users = [
+  { name: "Arnav", age: 20 },
+  { name: "Riya", age: 25 },
+  { name: "Aman", age: 17 }
+];
+const req_users = users.filter(function (el) { // step-1
+  return el.age > 18;
+})
+console.log(req_users); // [ { name: 'Arnav', age: 20 }, { name: 'Riya', age: 25 } ]
+const output = req_users.map(function (el){
+  // step-2
+  return el.name;
+})
+console.log(output); // [ 'Arnav', 'Riya' ]
+``` 
+- You can combine both steps in a single step
+```js
+const users = [
+  { name: "Arnav", age: 20 },
+  { name: "Riya", age: 25 },
+  { name: "Aman", age: 17 }
+];
+const output= users.filter(function (el) { // step-1
+  return el.age > 18;
+}).map(function (el){
+  return el.name;
+});
+console.log(output); // [ 'Arnav', 'Riya' ]
+```

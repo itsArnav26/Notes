@@ -1,4 +1,4 @@
-# About js
+# About Javascript
 - It is synchronus single-threaded language.
   - **synchronus** : Each line waits for the previous one to finish
   - **single-threaded** : It can execute only one task at a time

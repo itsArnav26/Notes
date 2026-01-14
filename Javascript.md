@@ -466,3 +466,20 @@ document.getElementById("clickme").addEventListener("click",function (){
     - It checks if the call stack is empty.
     - It checks the microtask queue first, and then the callback queue if the microtask queue is empty.
     ![alt text](assets/Javascript/image-13.png)
+## Trust Issue with SetTimeout
+ - SetTimeout states that it will `execute the function after atleast 'x' seconds`
+ - Suppose delay is of 5000ms, and it requires 10sec to execute GEC,so callback function (which is need to execute after 5000ms) will execute after 10 sec when GEC will get executed
+ - *Eample Code :*:
+ ```js
+ console.log("Start");
+ setTimeout(function (){
+  console.log("callback");
+ },5000);
+  console.log("end");
+ let startDate = new Date().getTime();
+ let endDate = startDate();
+ while(endDate < startDate + 10000){ //  blocking main thread for 10 seconds
+  endDate = new Date().getTime();
+ } 
+ console.log("whileExpires");
+ ```

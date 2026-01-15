@@ -466,6 +466,18 @@ document.getElementById("clickme").addEventListener("click",function (){
     - It checks if the call stack is empty.
     - It checks the microtask queue first, and then the callback queue if the microtask queue is empty.
     ![alt text](assets/Javascript/image-13.png)
+## High Order Functions:
+- A `function` that takes `another function` as an `arguement` or `returns` a `function` from it.
+```js
+function x(){
+  console.log("Hello")
+}
+function y(x){
+  x()
+}
+// y is HOF
+// x is callback function (x is passed as argument)
+```
 ## Trust Issue with SetTimeout
  - SetTimeout states that it will `execute the function after atleast 'x' seconds`
  - Suppose delay is of 5000ms, and it requires 10sec to execute GEC,so callback function (which is need to execute after 5000ms) will execute after 10 sec when GEC will get executed
@@ -592,3 +604,21 @@ const output= users.filter(function (el) { // step-1
 });
 console.log(output); // [ 'Arnav', 'Riya' ]
 ```
+# CallBack Hell
+-   Callback function inside another callback function. 
+- Structure is know as `pyramid of doom`
+```js
+api.createOrder(function (){
+  api.proceedToPayment(function(){
+    api.showOrderSummary(function(){
+      api.updateWallet()
+    })
+  })
+})
+```
+- Since proceedToPayemnt() is now handled by another function, i.e, createOrder().
+- There may be a case in which bcs of some bugs createOrder function does not work, and bcs of this proceedToPayment which is an important function, will also not work
+- In this way we looses our control to Javascript,as proccedToPayemnt function is totally depend upon createOrder function for its execution
+- This is Known as `inversion of control`
+
+- Solution-> `Promise`

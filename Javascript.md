@@ -622,3 +622,35 @@ api.createOrder(function (){
 - This is Known as `inversion of control`
 
 - Solution-> `Promise`
+# Promise
++ Objects that represent the `eventual completion or failure` of an `asynchronous operation` and its resulting value.
++ Used to handle asynchronus operations in JS.
++ It is `immutable`
++ State of promise:
+
+  - `Pending`: The initial state, neither fulfilled nor rejected.
+
+  - `Fulfilled`: The operation completed successfully.
+
+  - `Rejected`: The operation failed.
+```js
+const promise = createOrder();// this will return promise.After execution,automatically the promise will call "payment" api.
+promise.then(function (){
+  payment(orderId);
+});
+```
+## Promise Chain
+```js
+promise
+    .then(function(orderId){
+      return proceedToPayment(orderId)
+    })
+    .then(function (paymentInfo){
+      return showOrderSummry(paymentInfo)
+    })
+    .then(function (paymentInfo){
+      return updateWallte(paymentInfo)
+    })
+```
+- These chains of '.then' are knonw as `promise chain`.
+  - "return" is neccessary to pipe the data.

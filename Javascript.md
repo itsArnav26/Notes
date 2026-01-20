@@ -654,3 +654,90 @@ promise
 ```
 - These chains of '.then' are knonw as `promise chain`.
   - "return" is neccessary to pipe the data.
+
+## Creating a Promise
+- use constructor `Promise()`
+- `Promise()` takes a function with two parameters: `resolve` and `reject`
+- when api run successfully ,we will reject ,using `reject`
+```js
+const cart = [];
+
+const promise = createOrder(cart);
+
+promise.then(function (orderID) { // since "orderID" is resolved ,thats why orderID is taken as argument in this function.So whatever the thing is resolverd,it came here
+  // payment(orderID);
+  console.log(orderID);
+});
+.catch(function (err){
+  console.log(err.message);
+});
+
+function createOrder(cart) {
+  const pr = new Promise(function (resolve, reject) {
+    if (!validateCart(cart)) {
+      const err = new Error("Cart is not valid");
+      reject(err);
+    }
+
+    const orderID = "12345";
+    if (orderID) {
+      resolve(orderID);
+    }
+  });
+
+  return pr;
+}
+
+function validateCart(cart) {
+  return true;
+}
+// Output: 12345
+``` 
+### `promise.then(function (orderID) {})` : this will only work when ,things are sucessfull(resolved)
+- if it has been `rejected` then it will show error in red colour,and we need to handel this error,thats why we use `catch`
+- `.catch`: will only run when the promise has rejected
+### Pomise Chain
+```js
+const cart = [];
+
+const promise = createOrder(cart);
+console.log(promise);
+promise.then(function (orderID) { 
+  console.log(orderID);
+});
+.then(function (orderID){
+  return proceedPayment();
+});
+.then(function (paymentInfo){
+  console.log(paymentInfo)
+})
+.catch(function (err){ // will handel all the rejection of above callback function .Anything down the line after the catch will run.
+  console.log(err.message);
+});
+
+function createOrder(cart) {
+  const pr = new Promise(function (resolve, reject) {
+    if (!validateCart(cart)) {
+      const err = new Error("Cart is not valid");
+      reject(err);
+    }
+
+    const orderID = "12345";
+    if (orderID) {
+      resolve(orderID);
+    }
+  });
+
+  return pr;
+}
+
+function validateCart(cart) {
+  return true;
+}
+
+function proceedPayment(orderID){
+  const pr = Promise(function (resolve,reject){
+    return resolve("Payment Successfull")
+  });
+}
+```

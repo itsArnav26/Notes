@@ -741,3 +741,153 @@ function proceedPayment(orderID){
   });
 }
 ```
+# async vs await
+## async
+  - `keyword` to create `asynchronus function`
+  - Always `return promise`.
+## await
+  - used to `handle promises`.
+  - provides a more synchronous and linear approach to writing asynchronous code
+  - it can only be used inside `async` functions
+```js
+const pr = new Promise(function (resolve,reject){
+  resolve("Namaste");
+});
+
+async function getData1(){
+  return pr;
+}
+
+async function getData2(){
+  const data = "Hello";
+  return data
+}
+
+const promise1 = getData1();
+const promise2 = getData2();
+
+console.log(promise1);
+console.log(promise2);
+
+promise1.then(function(msg){ // handeld promise
+  console.log(msg);
+});
+
+promise2.then(function(msg){
+  console.log(msg);
+});
+```
+**Output :**
+```js
+Promise { <pending> } // pending,bcs of async,without async,the state will be fullfilled
+Promise { 'Hello' }
+Hello
+Namaste
+```
+- Whenever a `value` is returned in `async` function,it wrapup the value inside a promise ,and provide us a promise
+- Whenever a `promise` is returned in `async` function,it returns a promise
+
+## Handeling Promise using await
+```js
+const p = new Promise(function (resolve,reject){
+  resolve("Namaste");
+});
+async function getData1(){
+  const pr = await p;
+  console.log(pr);
+}
+getData1();
+// Output: Namaste
+```
+## Handeling Promise using setTimeout
+
+`case: 1` **Normal Handeling**
+```js
+const p = new Promise(function(resolve,reject){
+  setTimeout(function(){
+    resolve("Namaste");
+  },5000);
+});
+
+async function getData(){
+  return p;
+}
+
+const data = getData();
+console.log("Random");
+data.then(function(msg){ // handeld promise.Jaise hi control,setTimer register this function for 10sec,and since javascript waits for none, isko chor ke baaki sab execute start hone lag jaate h 
+  console.log(msg); // print after 10 sec
+});
+console.log("Helllooo");
+```
+**Output :**
+```js
+Random
+Helllooo
+Namaste // it has been printed after 10 seconds
+```
+- `using await`:
+```js
+const p = new Promise(function(resolve,reject){
+  setTimeout(function(){
+      resolve("Namaste");
+  },5000);
+});
+
+async function getData(){
+  console.log("Random");
+  const data = await p // await force js engine to wait.
+  console.log(data);
+  console.log("it should print after 5sec");
+}
+
+getData();
+```
+**Output :**
+```js
+Random
+// after 5  seconds
+Namaste
+it should print after 5sec
+```
+- But javascript waits for none,so how can it wait when using wait??
+- So it does not wait , it appears that js engine wait for that promise to setlled
+## What acually happens
+- Now when `getData` is called, EC is created,and moved into call stack
+- then `random` get printed
+- in next line `await` is there, so what happens is that,the `getData get suspended untill the promise p get settled`.
+- in this time ,the call stack gets empty ,basically `getData` get removed or suspended from the call stack
+- now when the promise get setlled(after 5sec) the `getData` again move in to the call stack,and the the `execution will resume from the line where it left`.
+- Then all the things get executed
+
+## Some more examples
+```js
+const p1 = new Promise(function(resolve,reject){
+  setTimeout(function(){
+      resolve("This is promise1");
+  },7000);
+});
+const p2 = new Promise(function(resolve,reject){
+  setTimeout(function(){
+      resolve("This is promise2");
+  },8000);
+});
+
+async function getData(){
+  console.log("I will be printed first");
+  const pr1 = await p1; // waits for 7 seconds
+  console.log(pr1);
+  const pr2 = await p2;// waits for only one seconds
+  console.log(pr2);
+}
+getData();
+```
+- p1 and p2 are created before the getData() function runs.
+- As soon as they are created, their setTimeout timers start immediately.
+- getData() is called and
+"I will be printed first" is printed immediately.
+- now p1 takes 7 seconds
+- after waiting ,it prints the value
+- Since p2 needs 8 seconds total and 7 seconds have already passed, it only needs 1 more second to resolve.
+- so ,after printing the value of promise 1,it doest not wait for 8 seconds,it waits for only one sec
+- now what if we swap.... then since , p2 needs 8sec,and p1 needs 7sec,so at the time when p2 get setlled,then p1 get already setlled bcs it requires 7 seconds,which is already coverd in 8 seconds

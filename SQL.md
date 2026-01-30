@@ -38,16 +38,94 @@
     )_
 - Query:
   - `CREATE TABLE STUDENT(
-  id INT PRIMARY KEY,
+  rollno INT PRIMARY KEY,
   name VARCHAR(50),
-  age INT NOT NULL
+  marks INT,
+  grade VARCHAR(50),
+  city VARCHAR(50)
 )`;
 - we created a table whose name is `STUDENT`
-- `id`,`name`,`age`,these are the coloumns of the table with the provided datatypes
+- `rollno`,`name`,`marks`,`grade`,`city`these are the coloumns of the table with the provided datatypes
+- <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Student Table</title>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <th>Roll No</th>
+        <th>Name</th>
+        <th>Marks</th>
+        <th>Grade</th>
+        <th>City</th>
+      </tr>
+      <tr>
+        <td>101</td>
+        <td>Anil</td>
+        <td>78</td>
+        <td>C</td>
+        <td>Pune</td>
+      </tr>
+      <tr>
+        <td>102</td>
+        <td>Bhumika</td>
+        <td>93</td>
+        <td>A</td>
+        <td>Mumbai</td>
+      </tr>
+      <tr>
+        <td>103</td>
+        <td>Chetan</td>
+        <td>85</td>
+        <td>B</td>
+        <td>Mumbai</td>
+      </tr>
+      <tr>
+        <td>104</td>
+        <td>Dhruv</td>
+        <td>96</td>
+        <td>A</td>
+        <td>Delhi</td>
+      </tr>
+      <tr>
+        <td>105</td>
+        <td>Emanuel</td>
+        <td>12</td>
+        <td>F</td>
+        <td>Delhi</td>
+      </tr>
+      <tr>
+        <td>106</td>
+        <td>Farah</td>
+        <td>82</td>
+        <td>B</td>
+        <td>Delhi</td>
+      </tr>
+    </table>
+  </body>
+  </html>
 
 ### NOTE
 
 - `We can wirte sql commands in lowercase letters also`
+
+## Delete a Table
+
+- `removing the existence` of the table
+- syntax:
+  - `DROP` TABLE table_name;
+- Ex: drop table student (this line will delete the `student` table)
+- if we try to print the this table,we will get an error
+
+## Deleting datas of table
+
+- means `deleting` all the `rows` `not the schemas`
+- use `TRUNCATE`
+- syntax:
+  - `TRUNCATE` TABLE table_name
+
+![alt text](assets/SQL/{EF53DECC-7AE4-41E7-9E5A-D5A07C8690FD}.png)
 
 ## SQL Datatypes
 
@@ -438,3 +516,40 @@
       <td>96</td>
     </tr>
   </table>
+
+## UPDATE
+
+- UPDATE in SQL is used to modify existing records(values of coloumn) in a table.
+- **Syntax :**
+  - update table_name set col_name1 = value1 where col_name2 = value2;
+
+## DELETE
+
+- DELETE in SQL is used to remove records from a table.
+- **Syntax :**
+  delete from table_name where col_name = value;
+
+## ALTER commands
+
+- ALTER commands in SQL are used to modify the structure of a table.
+- `Add a coloumn`
+  - **syntax**:
+    - alter table table_name add coloumn_name datatypes constraint;
+- `Modify datatypes`
+  - **syntax**:
+    - alter table table_name modify coloumn_name new_datatypes new_constraints;
+- `Rename a coloumn`
+  - **syntax**:
+    - alter table table_name rename coloumn coloumn_old_name to coloumn_new_name;
+- `Drop a coloumn`: deleting a coloumn
+  - **syntax**:
+  - alter table student drop coloumn_name
+- `Rename Table`
+  - **syntax**:
+    - alter table old_table_name rename to new_table_name;
+- `CHANGE` : **MODIFY + RENAME**
+- CHANGE command (MySQL) is used to `rename` a `column` and `change` its `datatype` at the same time.
+  - **syntax**:
+    - alter table table_name change old_col_name new_col_name datatypes
+
+## JOINS

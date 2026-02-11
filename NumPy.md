@@ -1,3 +1,12 @@
+## Table of Contents
+
+- [NumPy](#what-is-numpy)
+- [UseCase](#why-use-numpy)
+- [Diffrence Between List and NumPy](#list-vs-numpy)
+- [First Array](#created-out-first-array)
+- [ndim,shape,size,dtype](#array-attributes)
+- [zeros,ones,linspace,arange](#create-basic-array)
+
 ## What is NumPy
 
 - NumPy (Numerical Python) is an open source Python library that’s widely used in science and engineering.
@@ -91,4 +100,19 @@ a = np.array([1,2,3,4],[5,6,7,8])
 - **np.ones**
   - create an array filled with 1’s
   - EX: np.zeros(2) -> create an array filled with 1’s
-  - array([0., 0.])
+  - array([1., 1.])
+- **np.linspace**
+  - create an array with values that are spaced linearly in a specified interval
+  - EX: np.linspace(0,10,5)
+  - array([ 0. , 2.5, 5. , 7.5, 10. ])
+- **np.arange**
+  - create an array with a range of elements
+  - Ex:np.arange(0,4)
+  - array([0,1,2,3]) (`4 is excluded`)
+  - also can specify the `first number, last number, and the step size`.
+  - Ex: np.arange(0,10,2)
+  - array([0,2,4,6,8])
+  ### Specifying your data type
+  - can explicitly `specify` which `data type` you want using the `dtype` keyword.
+  - Ex: a = np.ones(3,`dtype = np.int64`)
+  - [1,1,1]

@@ -6,6 +6,9 @@
 - [First Array](#created-out-first-array)
 - [ndim,shape,size,dtype](#array-attributes)
 - [zeros,ones,linspace,arange](#create-basic-array)
+- [Adding Row](#adding-row)
+- [Adding col](#adding-coloumn)
+- [Deleting Value](#deleting-value)
 
 ## What is NumPy
 
@@ -129,7 +132,7 @@ a = np.array([1,2,3,4],[5,6,7,8])
   ```py
   np.random.random((2,3))
   # array([[0.51187581, 0.37952809, 0.82269318],
-       [0.59167868, 0.69854632, 0.94498465]])
+     #  [0.59167868, 0.69854632, 0.94498465]])
   ```
   ### Specifying your data type
   - can explicitly `specify` which `data type` you want using the `dtype` keyword.
@@ -216,3 +219,54 @@ Trick -> All row slicing before comma,All coloumn slicing after comma
 [False False False False]
 [False False False False]] (Boolean array)
   - a[a<5] -> "Give me elements of a where the condition is True.”
+
+## Adding Row
+
+- use `vstack()`
+- takes `tuple` as input parameter
+- ```py
+  original = np.array([[1,2],[3,4]])
+  new_row = np.array([[5,6]])
+  new_arr = np.vstack((original,new_row))
+  new_arr
+  ```
+  ```
+  - Output
+  array([[1, 2],
+       [3, 4],
+       [5, 6]])
+  ```
+
+## Adding Coloumn
+
+- use `hstack()`
+- takes `tuple` as input parameter
+- ```py
+  original = np.array([[1,2],[3,4]])
+  new_col = np.array([[7],[8]])
+  new_arr = np.vstack((original,new_col))
+  new_arr
+  ```
+-
+- Output
+
+```
+  array([[1, 2, 7],
+       [3, 4, 8]])
+```
+
+## Deleting value
+
+- use `np.delete`
+- returns array with the deleted value
+- ```py
+   arr = np.array([1,2,3,4,5,6])
+   deleted_arr = np.delete(arr,2)
+   arr
+  ```
+  Output:
+
+```
+  array([1, 2, 3, 4, 5, 6])
+
+```

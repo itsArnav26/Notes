@@ -323,3 +323,186 @@ Age	Salary	Gender
 
 </body>
 </html>
+
+## Filtering
+
+- To find Age greater than 18
+
+```py
+df['Age'] > 18
+df[df['Age'] > 18]
+```
+
+Output:
+
+```py
+0    True
+1    True
+2    True
+3    True
+4    True
+5    True
+Name: Age, dtype: bool
+
+
+Name	Age	Salary	Gender
+0	Arnav	21	30000	Male
+1	Rahul	22	35000	Male
+2	Sneha	20	28000	Female
+3	Priya	23	40000	Female
+4	Amit	24	45000	Male
+5	Neha	22	32000	Female
+```
+
+- To find whose name is Arnav
+
+```py
+df[df['Name'] == 'Arnav']
+```
+
+Output:
+
+```py
+Name	Age	Salary	Gender
+0	Arnav	21	30000	Male
+```
+
+- To find whose age is even and greater than 22
+
+```py
+df[(df['Age'] % 2 == 0) & (df['Age'] > 22)]
+```
+
+Output:
+
+```py
+Name	Age	Salary	Gender
+4	Amit	24	45000	Male
+```
+
+- To find rows whose name is Arnav or Rahul
+- Way1:
+
+```py
+df[(df['Name'] == 'Arnav') | (df['Name'] == 'Rahul')]
+```
+
+- Way2: (Using - `isin()`)
+
+```py
+df[df['Name'].isin(['Arnav','Rahul'])]
+```
+
+Output:
+
+```py
+	Name	Age	Salary	Gender
+0	Arnav	21	30000	Male
+1	Rahul	22	35000	Male
+```
+
+- To find only Names whose age is between 20-24
+- use `between()`
+
+```py
+df[df['Age'].between(20,24)].loc[:,['Name']]
+```
+
+```
+Name
+0	Arnav
+1	Rahul
+2	Sneha
+3	Priya
+4	Amit
+5	Neha
+```
+
+## ADD,UPDATE,DELETE
+
+- ### `Column`
+
+- `Add`:
+
+```py
+df["City"] = ["Delhi","Mumbai","Bangalore","Pune","Chennai","Hyderabad"] # it should be no of values = no of rows
+```
+
+Output:
+
+```py
+Name	Age	Salary	Gender	City
+0	Arnav	21	30000	Male	Delhi
+1	Rahul	22	35000	Male	Mumbai
+2	Sneha	20	28000	Female	Bangalore
+3	Priya	23	40000	Female	Pune
+4	Amit	24	45000	Male	Chennai
+5	Neha	22	32000	Female	Hyderabad
+```
+
+- `Update`
+- update the salray of first row
+
+```py
+df.loc[0,['Salary']] = df.loc[0,['Salary']] + 90000
+```
+
+Output
+
+```py
+Name	Age	Salary	Gender	City
+0	Arnav	21	120000	Male	Delhi
+1	Rahul	22	35000	Male	Mumbai
+2	Sneha	20	28000	Female	Bangalore
+3	Priya	23	40000	Female	Pune
+4	Amit	24	45000	Male	Chennai
+5	Neha	22	32000	Female	Hyderabad
+```
+
+- `Delete`
+
+```py
+df.drop("City",axis = 1)  # axis = 1 for column,do inplace = True to make changes
+```
+
+```
+Name	Age	Salary	Gender
+0	Arnav	21	120000	Male
+1	Rahul	22	35000	Male
+2	Sneha	20	28000	Female
+3	Priya	23	40000	Female
+4	Amit	24	45000	Male
+5	Neha	22	32000	Female
+```
+
+### Row:
+
+- `Add`:
+
+```py
+df.loc[len(df)]  = ["Riya", 21, 29000, "Female","Mumbai"] # Initially total length was 5 , so we have to append new row at index 5,bcs for length 5 indexes are from 0-4.
+df.tail(1) # give the last row(recently added row)
+```
+
+```py
+Name	Age	Salary	Gender	City
+6	Riya	21	29000	Female	Mumbai
+```
+
+- Update
+- Update Age of Rahul and print only that row
+
+```py
+df[df['Name'] == 'Rahul']
+df.loc[df['Name'] == 'Rahul',['Age']] = 30
+df[df['Name'] == 'Rahul']
+```
+
+```py
+Name	Age	Salary	Gender	City
+1	Rahul	22	35000	Male	Mumbai
+
+
+Name	Age	Salary	Gender	City
+1	Rahul	30	35000	Male	Mumbai
+```

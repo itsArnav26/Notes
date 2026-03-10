@@ -5,6 +5,8 @@
 - [Creating DataFrame](#creating-dataframe)
 - [head,tail,rename,info,describe](#headtailrenameinfodescribe)
 - [save and load csv file](#save-and-load-data-from-csv)
+- [Row and Column Selection](#row-and-coloumns-selection)
+- [iloc vs loc](#iloc-vs-loc)
 
 ## About Pandas
 
@@ -291,9 +293,6 @@ Age	Salary	Gender
     </style>
 </head>
 <body>
-
-<h2>Difference between loc and iloc</h2>
-
 <table>
     <tr>
         <th>Feature</th>

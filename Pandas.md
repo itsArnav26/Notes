@@ -1,5 +1,11 @@
 ## Table of Contents
 
+- [Introduction](#about-pandas)
+- [DataFrame](#dataframe)
+- [Creating DataFrame](#creating-dataframe)
+- [head,tail,rename,info,describe](#headtailrenameinfodescribe)
+- [save and load csv file](#save-and-load-data-from-csv)
+
 ## About Pandas
 
 - Pandas is a `Python library` used for `data manipulation` and `analysis`. It provides data structures like `Series` and `DataFrame` that allow users to store, organize, clean, and analyze structured data efficiently.
@@ -169,3 +175,152 @@ min	20.000000	28000.000000
 75%	22.750000	38750.000000
 max	24.000000	45000.000000
 ```
+
+- ## Save and Load data from csv
+
+```py
+df.to_csv('name.csv') # to save
+loaded_df = pd.read_csv('name.csv') # to load/read
+```
+
+![alt text]({71906ABD-E2DC-46AD-BECC-74EE64F1094F}.png)
+
+- This is csv file.since it also showing index as the first column,but we dont want it
+- so: `df.to_csv('name.csv',index = False)`
+- ![alt text]({20E1C259-DA29-4F94-9F36-832167DAE9A1}.png)
+- ## Row and Coloumns Selection
+- **`Columns Selection`**
+
+```py
+df[['Name']]
+df[['Name','Age']]
+```
+
+```py
+Name
+0	Arnav
+1	Rahul
+2	Sneha
+3	Priya
+4	Amit
+5	Neha
+
+
+Name	Age
+0	Arnav	21
+1	Rahul	22
+2	Sneha	20
+3	Priya	23
+4	Amit	24
+5	Neha	22
+
+```
+
+- **'Row Selection'**
+- 1. **Using `loc`** - Lable-based indexing
+- To select only rows:
+
+```py
+df.loc[0:2] # Rows - > 0,1,2
+```
+
+```py
+Name	Age	Salary	Gender
+0	Arnav	21	30000	Male
+1	Rahul	22	35000	Male
+2	Sneha	20	28000	Female
+```
+
+- To select rows and columns:
+
+```py
+df.loc[0:2,['Name','Age']]
+```
+
+```py
+Name	Age
+0	Arnav	21
+1	Rahul	22
+2	Sneha	20
+```
+
+- 2. **Using `iloc`** : Integer position-based indexing
+- To select only rows:
+
+```py
+df.iloc[0:2] # Rows -> 0,1
+```
+
+```py
+Name	Age	Salary	Gender
+0	Arnav	21	30000	Male
+1	Rahul	22	35000	Male
+```
+
+- To select Rows and columns:
+
+```py
+df.iloc[0:2,1:]
+```
+
+```py
+Age	Salary	Gender
+0	21	30000	Male
+1	22	35000	Male
+```
+
+## iloc vs loc
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>loc vs iloc</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 60%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Difference between loc and iloc</h2>
+
+<table>
+    <tr>
+        <th>Feature</th>
+        <th>loc</th>
+        <th>iloc</th>
+    </tr>
+    <tr>
+        <td>Meaning</td>
+        <td>Label-based indexing</td>
+        <td>Integer position-based indexing</td>
+    </tr>
+    <tr>
+        <td>Uses</td>
+        <td>Row/column names (labels)</td>
+        <td>Row/column index numbers</td>
+    </tr>
+    <tr>
+        <td>Index type</td>
+        <td>Works with actual labels</td>
+        <td>Works with numeric positions</td>
+    </tr>
+    <tr>
+        <td>Slice behavior</td>
+        <td>End index included</td>
+        <td>End index excluded</td>
+    </tr>
+</table>
+
+</body>
+</html>
